@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Author: line
@@ -20,7 +19,7 @@ public class ClocExecutor {
     private ExecutorService singleFileCountPool;
     private ExecutorService totalCountThread;
 
-    private AtomicLong finishedCount;
+    private long finishedCount;
     private long submitCount;
     private CountDownLatch stopSignal;
 
@@ -30,7 +29,7 @@ public class ClocExecutor {
         singleFileCountPool = Executors.newWorkStealingPool();
         totalCountThread = Executors.newSingleThreadExecutor();
 
-        finishedCount = new AtomicLong(0);
+        finishedCount = 0;
         submitCount = 0;
         stopSignal = new CountDownLatch(1);
 
@@ -38,7 +37,7 @@ public class ClocExecutor {
     }
 
 
-    public AtomicLong getFinishedCount() {
+    public long getFinishedCount() {
         return finishedCount;
     }
 
@@ -76,10 +75,10 @@ public class ClocExecutor {
                         } else {
                             totalCount.add(singleFileCount);
                         }
-                        this.finishedCount.incrementAndGet();
+                        ++this.finishedCount;
                     });
                 } catch (Exception e) {
-                    this.finishedCount.decrementAndGet();
+                    --this.finishedCount;
                 }
             });
         }

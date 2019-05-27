@@ -27,7 +27,7 @@ public class Cloc {
         clocExecutor.submit(new File(args[0]));
         try {
             clocExecutor.getStopSignal().await();
-            while (clocExecutor.getFinishedCount().get() < clocExecutor.getSubmitCount()) {
+            while (clocExecutor.getFinishedCount() < clocExecutor.getSubmitCount()) {
                 Thread.sleep(3);
             }
             clocExecutor.printResult();
