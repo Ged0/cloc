@@ -8,5 +8,6 @@ then start.sh and cloc.jar are already in target foler
 
 # use
 ```
+cd target
 ./start.sh ${FILE_PATH}
 
