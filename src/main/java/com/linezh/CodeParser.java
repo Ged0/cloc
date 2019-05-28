@@ -38,8 +38,8 @@ public class CodeParser {
             boolean isOnMultiLineComments = false;
             CodeRule.CommentRule commentRule = null;
             while ((line = bufferedReader.readLine()) != null) {
-//                String trimedData = CharMatcher.whitespace().trimFrom(line);
-                String trimedData = line;
+                String trimedData = CharMatcher.whitespace().trimFrom(line);
+//                String trimedData = line;
                 if (isOnMultiLineComments) {
                     fileCount.commentCountIncrement();
                     if (commentRule.getEndRegex().matcher(trimedData).matches()) {
